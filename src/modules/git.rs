@@ -5,18 +5,18 @@ use structopt::StructOpt;
 use crate::error::Result;
 use colored::Colorize;
 use crate::utils::{print_error, padded_message};
-use std::intrinsics::prefetch_read_instruction;
 
 /// Helpers for git repositories
 #[derive(StructOpt, Debug)]
 pub enum Git {
     /// Open the assumed website from the origin
-    Web,
+    Web {
+        remote: Option<String>,
+    },
 }
 
-// TODO: Support specifying origin
 // TODO: Open with the current branch (can be disabled with a flag)
-fn web() -> Result<()> {
+fn web(remote: Option<String>) -> Result<()> {
     let repo = match Repository::open(".") {
         Ok(r) => r,
         Err(_) => {
@@ -24,10 +24,14 @@ fn web() -> Result<()> {
             return Ok(())
         }
     };
-    let remote = match repo.find_remote("origin") {
+    let remote_name = match remote {
+        Some(r) => r,
+        None => "origin".to_string()
+    };
+    let remote = match repo.find_remote(&remote_name) {
         Ok(r) => r,
         Err(_) => {
-            print_error("remote `origin` does not exist");
+            print_error(format!("remote `{}` does not exist", remote_name));
             return Ok(())
         }
     };
@@ -42,14 +46,14 @@ fn web() -> Result<()> {
     let protocol = Regex::new(r#"(https?://|git@|\.git$)"#)?;
     let url = protocol.replace(url, "").replace(":", "/");
     let web_url = format!("http://{}", url);
-    padded_message("Opening".bright_purple().bold(), web_url);
+    padded_message("Opening".bright_purple().bold(), &web_url);
     open::that(&web_url)?;
     Ok(())
 }
 
 pub fn git(opt: Git) -> Result<()> {
     match opt {
-        Git::Web => web()
+        Git::Web { remote } => web(remote)
     }?;
     Ok(())
 }
