@@ -11,7 +11,14 @@ use crate::utils::{padded_message, print_error};
 pub enum Git {
     /// Open the assumed website from the origin
     Web {
+        /// Specify the remote to open
         remote: Option<String>,
+        /// The branch to open, defaults to current branch, only gitlab and github for now
+        #[structopt(short, long)]
+        branch: Option<String>,
+        /// Disable the branch to make it work with bitbucket and gitea
+        #[structopt(short, long)]
+        no_branch: bool,
     },
 }
 
@@ -22,8 +29,7 @@ fn get_web_url<T: Into<String>>(remote_url: T) -> Result<String> {
     Ok(format!("http://{}", url))
 }
 
-// TODO: Open with the current branch (can be disabled with a flag)
-fn web(remote: Option<String>) -> Result<()> {
+fn web(remote: Option<String>, branch: Option<String>, no_branch: bool) -> Result<()> {
     let repo = match Repository::open(".") {
         Ok(r) => r,
         Err(_) => {
@@ -50,7 +56,25 @@ fn web(remote: Option<String>) -> Result<()> {
             return Ok(());
         }
     };
-    let web_url = get_web_url(url)?;
+    let web_url = if !no_branch {
+        let branch = match branch {
+            Some(b) => b,
+            None => {
+                let branch = repo.head()?;
+                if branch.is_branch() {
+                    branch.shorthand().unwrap()
+                } else {
+                    ""
+                }.to_string()
+            }
+        };
+        // This only works with gitlab and github right now
+        // since gitea and bitbucket use a different format
+        format!("{}/tree/{}", get_web_url(url)?, branch)
+    } else {
+        get_web_url(url)?
+    };
+
     padded_message("Opening".bright_purple().bold(), &web_url);
     open::that(&web_url)?;
     Ok(())
@@ -58,7 +82,11 @@ fn web(remote: Option<String>) -> Result<()> {
 
 pub fn git(opt: Git) -> Result<()> {
     match opt {
-        Git::Web { remote } => web(remote)
+        Git::Web {
+            remote,
+            branch,
+            no_branch
+        } => web(remote, branch, no_branch)
     }?;
     Ok(())
 }
