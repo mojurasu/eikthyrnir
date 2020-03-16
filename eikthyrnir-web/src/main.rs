@@ -2,10 +2,8 @@ use git2::Repository;
 use regex::Regex;
 use structopt::StructOpt;
 
-use eikthyrnir::Colorize;
+use eikthyrnir::*;
 use error::Result;
-
-use eikthyrnir::{padded_message, print_error};
 
 mod error;
 
