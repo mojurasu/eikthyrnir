@@ -2,11 +2,7 @@ use std::process::Command;
 
 use clap::{App, AppSettings};
 
-use error::Result;
-
-pub const PADDING: usize = 15;
-
-mod utils;
+pub mod lib;
 
 
 fn main() -> () {
@@ -29,6 +25,6 @@ fn main() -> () {
     };
     match Command::new(&command_name).args(args).spawn() {
         Ok(_) => (),
-        Err(e) => utils::print_error(format!("running {}. Is it installed?", command_name))
+        Err(_) => lib::print_error(format!("running {}. Is it installed?", command_name))
     }
 }
