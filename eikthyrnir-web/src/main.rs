@@ -27,7 +27,11 @@ fn get_web_url<T: Into<String>>(remote_url: T) -> Result<String> {
     Ok(format!("http://{}", url))
 }
 
-fn web(remote: Option<String>, branch: Option<String>, no_branch: bool) -> Result<()> {
+fn main() -> Result<()> {
+    let opt: Opt = Opt::from_args();
+    let remote = opt.remote;
+    let branch = opt.branch;
+    let no_branch = opt.no_branch;
     let repo = match Repository::open(".") {
         Ok(r) => r,
         Err(_) => {
@@ -74,13 +78,7 @@ fn web(remote: Option<String>, branch: Option<String>, no_branch: bool) -> Resul
     };
 
     padded_message("Opening".bright_purple().bold(), &web_url);
-    open::that(&web_url)?;
-    Ok(())
-}
-
-pub fn main() -> Result<()> {
-    let opt: Opt = Opt::from_args();
-    web(opt.remote, opt.branch, opt.no_branch)?;
+    open::that(web_url)?;
     Ok(())
 }
 

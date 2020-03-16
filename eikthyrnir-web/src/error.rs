@@ -7,8 +7,6 @@ pub enum Error {
     IO(io::Error),
     Git(git2::Error),
     Regex(regex::Error),
-
-    Error,
 }
 
 impl fmt::Display for Error {
