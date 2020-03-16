@@ -91,6 +91,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "eikthyrnir-open"
+version = "0.1.0"
+dependencies = [
+ "eikthyrnir",
+ "open",
+ "structopt",
+]
+
+[[package]]
 name = "eikthyrnir-web"
 version = "0.1.0"
 dependencies = [

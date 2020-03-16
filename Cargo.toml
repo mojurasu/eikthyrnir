@@ -3,4 +3,5 @@
 members = [
     "eikthyrnir",
     "eikthyrnir-web",
+    "eikthyrnir-open",
 ]
