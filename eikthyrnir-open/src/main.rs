@@ -1,9 +1,9 @@
-use eikthyrnir::*;
-use std::path::PathBuf;
 use structopt::StructOpt;
 
-mod error;
+use eikthyrnir::*;
 use error::Result;
+
+mod error;
 
 /// Open anything
 ///
