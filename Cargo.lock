@@ -91,6 +91,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "eikthyrnir-chaotica"
+version = "0.1.0"
+dependencies = [
+ "eikthyrnir",
+ "quick-xml",
+ "structopt",
+]
+
+[[package]]
 name = "eikthyrnir-open"
 version = "0.1.0"
 dependencies = [
@@ -309,6 +318,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6c09721c6781493a2a492a96b5a5bf19b65917fe6728884e7c44dd0c60ca3435"
 dependencies = [
  "unicode-xid",
+]
+
+[[package]]
+name = "quick-xml"
+version = "0.18.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3cc440ee4802a86e357165021e3e255a9143724da31db1e2ea540214c96a0f82"
+dependencies = [
+ "memchr",
 ]
 
 [[package]]

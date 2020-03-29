@@ -1,0 +1,10 @@
+[package]
+name = "eikthyrnir-chaotica"
+version = "0.1.0"
+authors = ["SitiSchu <admin@sitischu.com>"]
+edition = "2018"
+
+[dependencies]
+eikthyrnir = {path = "../eikthyrnir"}
+structopt = "0.3"
+quick-xml = "0.18.1"
