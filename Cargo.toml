@@ -2,7 +2,7 @@
 
 members = [
     "eikthyrnir",
-    "eikthyrnir-web",
-    "eikthyrnir-open",
-    "eikthyrnir-chaotica",
+    "web",
+    "open",
+    "chaotica",
 ]

@@ -1,3 +1,3 @@
 cargo install --path eikthyrnir
-cargo install --path eikthyrnir-web
-cargo install --path eikthyrnir-open
+cargo install --path web
+cargo install --path open
