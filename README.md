@@ -10,6 +10,7 @@ structopt = "0.3"
 ```rust
 // main.rs
 use eikthyrnir::*;
+use structopt::StructOpt;
 
 mod error;
 use error::Result;
