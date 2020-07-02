@@ -24,7 +24,10 @@ fn main() -> () {
         None => &empty_args
     };
     match Command::new(&command_name).args(args).spawn() {
-        Ok(_) => (),
+        Ok(mut c) => {
+            c.wait().expect("Failed while waiting for the child.");
+            ()
+        }
         Err(_) => lib::print_error(format!("running {}. Is it installed?", command_name))
     }
 }

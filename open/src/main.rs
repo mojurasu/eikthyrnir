@@ -21,6 +21,6 @@ pub fn main() -> Result<()> {
         None => ".".to_string(),
     };
     padded_message("Opening".bright_blue().bold(), &to_open);
-    open::that(to_open)?;
+    open::that_in_background(to_open);
     Ok(())
 }

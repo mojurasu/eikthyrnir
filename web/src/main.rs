@@ -78,7 +78,7 @@ fn main() -> Result<()> {
     };
 
     padded_message("Opening".bright_purple().bold(), &web_url);
-    open::that(web_url)?;
+    open::that_in_background(web_url);
     Ok(())
 }
 
