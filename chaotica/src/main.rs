@@ -8,13 +8,16 @@ mod subcommands;
 
 #[derive(StructOpt, Debug)]
 enum Opt {
+    /// Relabel the worlds to their filename
     Relabel {
+        /// List of worlds to rename
         files: Vec<PathBuf>
     },
+    /// Combined multiple worlds into one file
     Combine {
-        // The file the worls should be saved into
+        /// The file the worls should be saved into
         file: PathBuf,
-        // A list of worlds that should be combined
+        /// A list of worlds that should be combined
         files: Vec<PathBuf>,
     }
 }
