@@ -6,21 +6,28 @@ use chrono::NaiveDateTime;
 use std::time::SystemTime;
 use std::fs;
 use std::io::Error;
+use crate::lib::exclude::load_excluded;
 
 pub fn list_files(path: PathBuf, age: &Duration) -> Result<Vec<PathBuf>> {
+    let exclusions = load_excluded(&path)?;
     let mut files: Vec<PathBuf> = vec![];
-    for entry in WalkDir::new(&path).into_iter().filter_map(|e| e.ok()) {
+    'outer: for entry in WalkDir::new(&path).into_iter().filter_map(|e| e.ok())  {
         if !entry.path_is_symlink() {
             let modified = entry.metadata()?.created()?;
             if modified.elapsed().unwrap().as_secs() > age.seconds {
                 let _path = entry.into_path();
+                for p in &exclusions {
+                    if _path.starts_with(p) {
+                        continue 'outer
+                    }
+                }
+
                 if _path != path {
                     files.push(_path)
                 }
-
             }
         }
-    };
+    }
     Ok(files)
 }
 
