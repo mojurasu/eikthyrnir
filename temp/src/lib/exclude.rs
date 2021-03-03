@@ -1,6 +1,5 @@
 use crate::error::Result;
 use std::path::PathBuf;
-use std::fs;
 use std::fs::File;
 use std::io::{BufReader, BufRead};
 

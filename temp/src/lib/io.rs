@@ -2,10 +2,7 @@ use std::path::PathBuf;
 use crate::lib::duration::Duration;
 use walkdir::WalkDir;
 use crate::error::Result;
-use chrono::NaiveDateTime;
-use std::time::SystemTime;
 use std::fs;
-use std::io::Error;
 use crate::lib::exclude::load_excluded;
 
 pub fn list_files(path: PathBuf, age: &Duration) -> Result<Vec<PathBuf>> {

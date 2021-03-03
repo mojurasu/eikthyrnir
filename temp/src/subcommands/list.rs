@@ -1,10 +1,8 @@
-use std::fs;
 use std::path::PathBuf;
 
 use eikthyrnir::*;
 
 use crate::Result;
-use chrono::NaiveDateTime;
 use crate::Duration;
 
 pub fn list(paths: Vec<PathBuf>, age: Duration) -> Result<()> {

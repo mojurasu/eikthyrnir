@@ -1,11 +1,6 @@
-use std::{fmt, io};
-use std::fmt::{Display, Formatter};
-use std::path::PathBuf;
 use std::str::FromStr;
 
-use chrono::NaiveDateTime;
-use regex::{Match, Regex};
-use walkdir::WalkDir;
+use regex::Regex;
 
 use crate::error;
 

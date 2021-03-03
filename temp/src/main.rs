@@ -2,7 +2,6 @@ use std::path::PathBuf;
 
 use clap::Clap;
 
-use eikthyrnir::*;
 use error::Result;
 use lib::duration::Duration;
 
