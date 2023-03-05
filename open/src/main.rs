@@ -1,21 +1,19 @@
-use structopt::StructOpt;
-
+use clap::Parser;
 use eikthyrnir::*;
-use error::Result;
-
-mod error;
+use anyhow::Result;
 
 /// Open anything
 ///
 /// Useful on windows since there's nothing like xdg-open there
-#[derive(StructOpt, Debug)]
-pub struct Opt {
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
+pub struct Args {
     /// Open the specified item or the current working directory
     item: Option<String>
 }
 
 pub fn main() -> Result<()> {
-    let opt: Opt = Opt::from_args();
+    let opt = Args::parse();
     let to_open = match opt.item {
         Some(i) => i,
         None => ".".to_string(),
