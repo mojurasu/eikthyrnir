@@ -11,4 +11,5 @@ name = "e"
 
 [dependencies]
 colored = "2.0"
-clap = "4"
+clap = "4.1"
+anyhow = "1.0"

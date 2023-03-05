@@ -1,7 +1,8 @@
 use std::ffi::OsString;
 use std::process::Command;
+use anyhow::Result;
 
-fn main() -> () {
+fn main() -> Result<()> {
     let m = clap::Command::new("e")
         .allow_external_subcommands(true)
         .get_matches();
@@ -13,7 +14,6 @@ fn main() -> () {
             match Command::new(&executable).args(subcmd_args).spawn() {
                 Ok(mut c) => {
                     c.wait().expect("Failed while waiting for the child.");
-                    ()
                 }
                 Err(_) => eikthyrnir::print_error(format!("running {}. Is it installed?", executable))
             }
@@ -21,5 +21,6 @@ fn main() -> () {
         _ => {
             eikthyrnir::print_error("missing subcommand")
         }
-    }
+    };
+    Ok(())
 }
