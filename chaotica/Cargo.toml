@@ -5,6 +5,7 @@ authors = ["SitiSchu <admin@sitischu.com>"]
 edition = "2018"
 
 [dependencies]
-eikthyrnir = {path = "../eikthyrnir"}
-structopt = "0.3"
+eikthyrnir = { path = "../eikthyrnir" }
+clap = { version = "4.1", features = ["derive"] }
+anyhow = "1.0"
 quick-xml = "0.18.1"

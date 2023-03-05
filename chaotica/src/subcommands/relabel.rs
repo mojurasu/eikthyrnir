@@ -1,13 +1,12 @@
 use std::borrow::Cow;
-use std::fs::{File, read};
-use std::io::{BufReader, Cursor, Write};
+use std::fs::{File};
 use std::path::PathBuf;
 
 use quick_xml::{Reader, Writer};
-use quick_xml::events::{BytesEnd, BytesStart, Event};
-use quick_xml::events::attributes::Attribute;
+use quick_xml::events::{BytesStart, Event};
 
-use crate::Result;
+
+use anyhow::Result;
 use eikthyrnir::*;
 use std::fs;
 
@@ -52,7 +51,7 @@ pub fn relabel(files: Vec<PathBuf>) -> Result<()> {
                 buf.clear();
             }
             if count == 1 {
-                writer.write(b"\n");
+                writer.write(b"\n")?;
                 fs::remove_file(&world)?;
                 fs::rename(new_world, world)?;
             } else {

@@ -1,13 +1,13 @@
-use structopt::StructOpt;
-
-mod error;
-use error::Result;
 use std::path::PathBuf;
+
+use anyhow::Result;
+use clap::Parser;
 
 mod subcommands;
 
-#[derive(StructOpt, Debug)]
-enum Opt {
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
+enum Args {
     /// Relabel the worlds to their filename
     Relabel {
         /// List of worlds to rename
@@ -19,14 +19,14 @@ enum Opt {
         file: PathBuf,
         /// A list of worlds that should be combined
         files: Vec<PathBuf>,
-    }
+    },
 }
 
 pub fn main() -> Result<()> {
-    let opt: Opt = Opt::from_args();
+    let opt = Args::parse();
     match opt {
-        Opt::Relabel { files } => subcommands::relabel(files)?,
-        Opt::Combine { file, files } => subcommands::combine(file, files)?,
+        Args::Relabel { files } => subcommands::relabel(files)?,
+        Args::Combine { file, files } => subcommands::combine(file, files)?,
     }
     Ok(())
 }
