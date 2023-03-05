@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<world name="World">
+	<int name="format_version">2</int>
+	<IFS name="test1">
+		inner
+	</IFS>
+</world>
