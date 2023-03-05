@@ -1,8 +1,10 @@
+use std::env;
 use std::ffi::OsString;
 use std::process::Command;
 use anyhow::Result;
 
 fn main() -> Result<()> {
+    env::set_var("CLICOLOR_FORCE", "1");
     let m = clap::Command::new("e")
         .allow_external_subcommands(true)
         .get_matches();
