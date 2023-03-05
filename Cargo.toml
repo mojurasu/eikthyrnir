@@ -5,5 +5,5 @@ members = [
     "web",
     "open",
     "chaotica",
-    "temp",
+    "chance",
 ]
