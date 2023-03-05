@@ -6,7 +6,8 @@ edition = "2018"
 
 [dependencies]
 eikthyrnir = {path = "../eikthyrnir"}
-structopt = "0.3"
+clap = { version = "4.1", features = ["derive"] }
+anyhow = "1.0"
 git2 = "0.12"
 regex = "1.3"
 open = "1.3"

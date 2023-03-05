@@ -197,20 +197,22 @@ dependencies = [
 name = "eikthyrnir-open"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
+ "clap 4.1.8",
  "eikthyrnir",
  "open",
- "structopt",
 ]
 
 [[package]]
 name = "eikthyrnir-web"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
+ "clap 4.1.8",
  "eikthyrnir",
  "git2",
  "open",
  "regex",
- "structopt",
 ]
 
 [[package]]

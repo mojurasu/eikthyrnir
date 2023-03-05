@@ -1,15 +1,13 @@
 use git2::Repository;
 use regex::Regex;
-use structopt::StructOpt;
+use clap::Parser;
 
 use eikthyrnir::*;
-use error::Result;
-
-mod error;
+use anyhow::Result;
 
 /// Open the assumed website from the git origin
-#[derive(StructOpt, Debug)]
-pub struct Opt {
+#[derive(Parser, Debug)]
+pub struct Args {
     /// Specify the remote to open
     remote: Option<String>,
     /// The branch to open, defaults to current branch, only gitlab and github for now
@@ -28,7 +26,7 @@ fn get_web_url<T: Into<String>>(remote_url: T) -> Result<String> {
 }
 
 fn main() -> Result<()> {
-    let opt: Opt = Opt::from_args();
+    let opt = Args::parse();
     let remote = opt.remote;
     let branch = opt.branch;
     let no_branch = opt.no_branch;
