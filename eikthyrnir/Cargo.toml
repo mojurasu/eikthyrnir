@@ -10,5 +10,5 @@ path = "src/main.rs"
 name = "e"
 
 [dependencies]
-colored = "1.9"
-clap = "2.33"
+colored = "2.0"
+clap = "4"

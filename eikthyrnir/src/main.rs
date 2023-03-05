@@ -1,33 +1,25 @@
+use std::ffi::OsString;
 use std::process::Command;
 
-use clap::{App, AppSettings};
-
-pub mod lib;
-
-
 fn main() -> () {
-    let m = App::new("e")
-        .setting(AppSettings::AllowExternalSubcommands)
+    let m = clap::Command::new("e")
+        .allow_external_subcommands(true)
         .get_matches();
-    let subcommand = m.subcommand();
-    let command_name = format!("{}-{}", env!("CARGO_PKG_NAME"), subcommand.0);
-    let empty_args = vec![];
 
-    let args = match subcommand.1 {
-        Some(m) => {
-            if !&m.args.is_empty() {
-                &m.args[""].vals
-            } else {
-                &empty_args
+    match m.subcommand() {
+        Some((subcmd, ext_m)) => {
+            let subcmd_args: Vec<_> = ext_m.get_many::<OsString>("").unwrap().collect();
+            let executable = format!("{}-{}", env!("CARGO_PKG_NAME"), subcmd);
+            match Command::new(&executable).args(subcmd_args).spawn() {
+                Ok(mut c) => {
+                    c.wait().expect("Failed while waiting for the child.");
+                    ()
+                }
+                Err(_) => eikthyrnir::print_error(format!("running {}. Is it installed?", executable))
             }
         }
-        None => &empty_args
-    };
-    match Command::new(&command_name).args(args).spawn() {
-        Ok(mut c) => {
-            c.wait().expect("Failed while waiting for the child.");
-            ()
+        _ => {
+            eikthyrnir::print_error("missing subcommand")
         }
-        Err(_) => lib::print_error(format!("running {}. Is it installed?", command_name))
     }
 }
